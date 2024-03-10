@@ -1,0 +1,43 @@
+{% extends "static/index.html" %}
+{% load crispy_forms_tags %}
+
+
+{% block content %}
+<div class="row">
+    {% if not request.user.is_authenticated %}
+    <div class="col-lg mt-3">
+        <h2>Login</h2>
+
+        <form method="POST" action="{% url "perfil:login" %}">
+            {% csrf_token %}
+            <div class="form-group">
+              <label for="exampleInputUser1">Usuário</label>
+              <input type="text" name='username' class="form-control" id="exampleInputUser1" aria-describedby="userHelp">
+            </div>
+            <div class="form-group">
+              <label for="exampleInputPassword1">Senha</label>
+              <input type="password" name='password' class="form-control" id="exampleInputPassword1">
+            </div>
+            <button type="submit" class="btn btn-dark btn-block btn-lg">Enviar</button>
+          </form>
+    </div>
+    {% endif %}
+    <div class="col-lg mt-3">
+        {% block titulocadastro %}
+        <h2>Cadastro</h2>
+        {% endblock titulocadastro %}
+        <form method="POST" action="">
+                {% csrf_token %}
+        {{ userform|crispy }}
+        {{ perfilform|crispy }}
+        
+        <div class="row">
+            <div class="col">
+                <button type="submit" class="btn btn-dark btn-block btn-lg">Cadastrar</button>
+            </div>
+        </div>
+        </form>
+    </div>
+</div>
+{% endblock content %}
+
